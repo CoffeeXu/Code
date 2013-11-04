@@ -1,22 +1,142 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!doctype html>
+<html lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<script type="text/javascript" src="jquery.js"></script>
-<title>directory</title>
-<style>
-	*{padding:0;margin:0;font: 16px/1.67 "MS PGothic",tahoma,"Simsun"}
-	body{width: 980px;margin: 0 auto;}
-	.list li{list-style-type:decimal;}
-	.list a,.list li{color: #db9;}
-</style>
+	<meta charset="UTF-8">
+	<title>slide</title>
+	<script src="http://upcdn.b0.upaiyun.com/libs/jquery/jquery-1.7.1.min.js" type="text/javascript"></script>
+	<style>
+    *{
+      margin: 0;
+      padding: 0;
+    }
+		ul{
+			position: relative;
+      overflow: hidden;
+      width: 100%;
+      height: 100%;
+		}
+		li{
+			position: absolute;
+			left: 0;top: 0;
+			visibility: hidden;
+		}
+    .now{
+      color: #333;
+    }
+	</style>
 </head>
 <body>
-	<ol class="list">
-		<li><a href="gird.html">扁平化设计块状布局</a></li>
-		<li><a href="repeatXY.html">左右背景各自延伸布局</a></li>
-		<li><a href="response.html">自适应布局</a></li>
-		<li><a href="keepBtm.html">页脚固定在底部</a></li>
-	</ol>
+  <div id="jsScroll">
+	<ul>
+    	<li style="visibility:visible;" id="position"><a href="#"><img alt="英伦风" src="img/img0.jpg"></a> </li>
+        <li><a href="#"><img alt="打底裤" src="img/img1.jpg"></a> </li>
+        <li><a href="#"><img alt="背心" src="img/img2.jpg"></a> </li>
+        <li><a href="#"><img alt="牛仔" src="img/img3.jpg"></a> </li>            
+    </ul>
+    <div id="jsTrigger" class="">
+        <a class="now" href="javascript:void(0)">1</a>
+        <a class="" href="javascript:void(0)">2</a>
+		<a class="" href="javascript:void(0)">3</a>
+		<a class="" href="javascript:void(0)">4</a>
+	</div>
+  </div>
+  <script>
+  console.log($('#position').css('top'),$('#position').css('left'),$('#position').css('right'),$('#position').css('bottom'));
+  (function($){
+    	$.fn.slideBox=function(options){
+    		var defaults={
+    			direction:'level',
+    			duration:1,
+    			easing:'swing',
+    			delay:3.5,
+    			//startIndex:1,
+    			hideClickBar:true,
+    			clickBarRadius:5,
+    			hideBottomBar:false,
+    			width:null,
+    			height:null
+    		};
+    		var settings = $.extend(defaults, options || {}),
+            	$wrap = $(this),
+            	pos, neg;
+
+	        var currentSlide = $wrap.find('li:eq(1)'),
+	            prevSlide = currentSlide.prev().size() ? currentSlide.prev() : $wrap.find('li:last-child');
+
+	        var init = function(){
+	            $wrap.css({width:settings.width, height:settings.height});
+	            $wrap.data('timer', setTimeout(start, settings.delay*1000));
+	            if(settings.direction === 'vertical'){
+	            	pos = {top:settings.height};
+	            	neg = {top:-settings.height};
+	            	zero = {top:0};
+	            }
+	            else if(settings.direction === 'level'){
+	            	pos = {left:settings.width};
+	            	neg = {left:-settings.width};
+	            	zero = {left:0};
+	            }
+	        };
+	        var start = function(){
+	          	var index = currentSlide.index();
+	          	$wrap.find('#jsTrigger a').removeClass('now').eq(index).addClass('now');
+
+	            currentSlide.css($.extend({visibility:'visible'}, pos))
+	            			.stop(true,true).animate(zero, settings.duration*1000, settings.easing);
+	          	prevSlide.stop(true,true).animate(neg, settings.duration*1000, settings.easing, function(){
+	              $(this).css($.extend({visibility:'hidden'}, zero));
+	            });
+	         
+	            prevSlide = currentSlide;
+	            currentSlide = currentSlide.next().size() ? currentSlide.next() : $wrap.find('li:first-child');
+	            $wrap.data('timer', setTimeout(start, settings.delay*1000));
+	            if(settings.direction === 'vertical'){
+	            	pos = {top:settings.height};
+	            	neg = {top:-settings.height};
+	            	zero = {top:0};
+	            }
+	            else if(settings.direction === 'level'){
+	            	pos = {left:settings.width};
+	            	neg = {left:-settings.width};
+	            	zero = {left:0};
+	            }
+	        }
+
+	        init();
+	        $wrap.hover(function(){
+	            	clearTimeout($wrap.data('timer'));
+		        }, function(){
+		        	clearTimeout($wrap.data('timer'));
+		            $wrap.data('timer', setTimeout(start, settings.delay*1000));
+		    });
+
+	    	$('#jsTrigger a').on('click', function(){
+	    		clearTimeout($wrap.data('timer'));
+	    		var index = $(this).index();
+	    		if(prevSlide.index() === index){
+	    			return;
+	    		}
+	    		else if(prevSlide.index() > index){
+	    			if(settings.direction === 'vertical'){
+		            	pos = {top:-settings.height};
+		            	neg = {top:settings.height};
+		            	zero = {top:0};
+		            }
+		            else if(settings.direction === 'level'){
+		            	pos = {left:-settings.width};
+		            	neg = {left:settings.width};
+		            	zero = {left:0}
+		            }
+	    		}
+	    		currentSlide = $wrap.find('li:eq('+index+')');
+	            start();
+	            clearTimeout($wrap.data('timer'));
+	    	})
+
+	    };
+	    $("#jsScroll").slideBox({width:320,height:488})/*direction:'vertical',*/
+
+  })(jQuery);
+  </script>
 </body>
 </html>
