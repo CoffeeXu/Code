@@ -1,20 +1,19 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>扁平化设计块状布局</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="css/reset.css" />
 <style>
-	/* reset */
-	*{padding:0;margin:0;font: 16px/1.67 "MS PGothic",tahoma,"Simsun"}
-	html, body{height: 100%;}
-	.clearfix:after{content:".";display:block;height:0;clear:both;visibility:hidden}
-	.clearfix{clear: both;*+height:1%;}
-	/* reset end*/
-	body{width: 1100px;margin: 0 auto;}
+	body{
+		width: 1100px;
+		margin: 0 auto;
+		font: 12px/1.5 '宋体';
+	}
 	.wrap{
-		float:left;
-		font-size:0;/* 所有浏览器 */
-		*word-spacing:-1px;/* IE6、7 */
+		float: left;
+		font-size: 0;/* 所有浏览器 */
+		*word-spacing: -1px;/* IE6、7 */
 	}
 	.section{
 		display: inline-block;
@@ -25,11 +24,18 @@
 		margin:5px;
 		background: #cbe48e;
 	}
-	.header, .footer{background: #e5ded3;width: 1090px;margin:5px;}	
+	.header, .footer{
+		background: #e5ded3;
+		width: 1090px;
+		margin:5px;
+	}
 </style>
 </head>
 <body>
-	<div class="header" style="height:120px">header</div>
+	<div class="header" style="height:120px">
+		<a href="http://coffeexu.github.io/code">看看其他</a>
+		<br>header
+	</div>
 	<div class="wrap" style="width:233px;">
 		<div class="section" style="width:223px;height:437px">1</div>
 		<div class="section" style="width:223px;height:82px">4</div>

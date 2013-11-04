@@ -1,97 +1,46 @@
 <!DOCTYPE html>
-<html id="modern-browsers" lang="en-US">
+<html lang="en-US">
 	<head>
-		<meta charset="UTF-8" />
 		<title>KEEP FOOTER ON THE BOTTOM</title>
+		<link rel="stylesheet" href="css/reset.css" />
+		<meta charset="UTF-8" />
 		<style>
-		/*css reset*/
-		html, body, div, span, applet, object, iframe,
-		h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-		a, abbr, acronym, address, big, cite, code,
-		del, dfn, em, img, ins, kbd, q, s, samp,
-		small, strike, strong, sub, sup, tt, var,
-		b, u, i, center,
-		dl, dt, dd, ol, ul, li,
-		fieldset, form, label, legend,
-		table, caption, tbody, tfoot, thead, tr, th, td,
-		article, aside, canvas, details, embed,
-		figure, figcaption, footer, header, hgroup,
-		menu, nav, output, ruby, section, summary,
-		time, mark, audio, video {
-			margin: 0;
-			padding: 0;
-			border: 0;
-			font-size: 100%;
-			font: inherit;
-			vertical-align: baseline;
-		}
-		/* HTML5 display-role reset for older browsers */
-		article, aside, details, figcaption, figure,
-		footer, header, hgroup, menu, nav, section {
-			display: block;
-		}
-		body {
-			line-height: 1;
-		}
-		ol, ul {
-			list-style: none;
-		}
-		blockquote, q {
-			quotes: none;
-		}
-		blockquote:before, blockquote:after,
-		q:before, q:after {
-			content: '';
-			content: none;
-		}
-		table {
-			border-collapse: collapse;
-			border-spacing: 0;
-		}
-		/*css reset end*/
-		.clearfix:after { content:"."; display:block; clear:both; visibility:hidden; line-height:0; height:0; }
-		.clearfix { display:inline-block; }
-		html[xmlns] .clearfix { display:block; }
-		* html .clearfix { height:1%; }
-
-		html{
-			height: 100%;
-		}
-		body{
-			min-height: 100%;
-			position: relative;
-			/* 不是重点 */
-			font:12px/30px "微软雅黑","黑体";
-		}
-		.container{
-			padding-bottom: 150px;/* >=footer.height */
-			/* 不是重点 */
-			width:990px;
-			margin: 0 auto;
-			padding-top: 100px;
-		}
-		.footer{
-			height: 100px;
-			width: 100%;
-			text-align: center;
-			position: absolute;
-			bottom: 0;
-			/* 不是重点 */
-			line-height: 100px;
-			border-top: 1px solid #f40;
-		}
-		.new{color:#478585;}
-		.old{color:#ff0000;}
-		.header{
-			width:990px;
-			margin: 0 auto;
-		}
-		a{color: #76A3E3}
-
+			html{
+				height: 100%;
+			}
+			body{
+				min-height: 100%;
+				position: relative;
+				/* 不是重点 */
+				font:12px/30px "微软雅黑","黑体";
+			}
+			.container{
+				padding-bottom: 150px;/* >=footer.height */
+				/* 不是重点 */
+				width:990px;
+				margin: 0 auto;
+				padding-top: 100px;
+			}
+			.footer{
+				height: 100px;
+				width: 100%;
+				text-align: center;
+				position: absolute;
+				bottom: 0;
+				/* 不是重点 */
+				line-height: 100px;
+				border-top: 1px solid #f40;
+			}
+			.new{color:#478585;}
+			.old{color:#ff0000;}
+			.header{
+				width:990px;
+				margin: 0 auto;
+			}
 		</style>
 	</head>
 	<body>
-		<div class="header"><a href="index.html">看看其他</a></div>
+		<div class="header"><a href="http://coffeexu.github.io/code">看看其他</a></div>
 		<div class="container">
 			<p class="new">尾部加absolute是干嘛</p>
 			<p class="old">为了让页脚固定在底部</p>
@@ -100,9 +49,8 @@
 			<p class="old">内容比较短小的时候，页脚固定，不然缩上去比较难看，你可以看下百度的<a href="http://www.baidu.com/">首页</a>。有些页面中间内容很少的，页脚跑上去就不好看了</p>
 			<p class="new">对的，但是css就可以实现，为什么要用js</p>
 			<p class="old">呵呵，你可以修改下-_-|||</p>
-			<p style="margin-top:100px;">p.s.新来的前端，已经在对我写的东西开始各种指手画脚了。人家只是懒得改呀。<br>
-			哈喽，把浏览器的高度调整缩小试试吧。</p>
+			<p style="margin-top:100px;">p.s.哈喽，把浏览器的高度调整缩小试试吧。</p>
 		</div>
 		<div class="footer">我就是要黏在底部\(^o^)/~</div>
 	</body>
-	</html>
+</html>
