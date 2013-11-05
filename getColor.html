@@ -1,9 +1,93 @@
 <!DOCTYPE html>
 <html>
 <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>getColor</title>
-        <link rel="stylesheet" href="index.css" />
+    <title>getColor</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="index.css" />
+    <style>
+      body {
+        font-family: Helvetica Neue, Helvetica, Tahoma, sans-serif;
+        background: #f5f5f7;
+      }
+
+      #title {
+        font-size: 46px;
+        text-transform: uppercase;
+      }
+
+      #container {
+        width: 900px;
+        margin: 44px auto 0px auto;
+        text-align: center;
+      }
+
+      #viewer {
+        position: relative;
+        width: 500px;
+        height: 240px;
+        border: 4px dashed #ccc;
+        border-radius: 10px;
+        vertical-align: baseline;
+        text-align: center;
+        text-shadow: 1px 1px 0 #fff;
+        margin:60px auto 30px auto;
+      }
+
+      #viewer.dragover {
+        border: 5px dashed #555;
+      }
+
+      #droparea-text {
+        z-index: 0;
+        margin-top: 100px;
+        font-size: 20px;
+        font-weight: bold;
+        color: #555;
+      }
+
+      #preview {
+        z-index: 1;
+        position: absolute;
+        top: 0px;
+        left: 0px;
+      }
+
+      #progress {
+        font-size: 20px;
+        color: #333;
+        position:absolute;
+        z-index:3;
+      }
+
+      footer {
+        margin-top: 10px;
+        font-size: 13px;
+        text-align: center;
+        color: grey;
+      }
+
+      #form1{
+        position:relative;
+        display: inline-block;
+      }
+      .type-file-file{
+        position:absolute;
+        left:0;top:0;
+        opacity:0;filter:alpha(opacity=0);
+        height:28px;cursor:pointer;
+      }
+      .type-file-button{
+        line-height:22px;
+        border:1px solid #CCCCCC;
+        padding:1px 10px;
+      }
+      .type-file-text{
+        border:1px solid #CCCCCC;
+        padding:4px;
+        margin-right:-7px;
+        vertical-align:bottom;
+      }
+    </style>
 </head>
 
 <body>
@@ -22,17 +106,16 @@
   </div>
   <div id="progress"></div>
   <footer>          
-                  <form id="form1" name="form1" method="post" action="">
-                    <input type="text" id="fileName" class="type-file-text"></input>
-                        <input type="button" class="type-file-button" value="浏览"/>
-                        <input type="file" size="20" class="type-file-file" onchange="handleFiles(this.files)"></input>
-                  </form>        
+    <form id="form1" name="form1" method="post" action="">
+      <input type="text" id="fileName" class="type-file-text"></input>
+      <input type="button" class="type-file-button" value="浏览"/>
+      <input type="file" size="20" class="type-file-file" onchange="handleFiles(this.files)"></input>
+    </form>        
   </footer>
-  <!-- <a href="https://github.com/CoffeeXu/HelloWorld/tree/master/canvas"><img style="position: absolute; top: 0; right: 0; border: 0;" src="" alt="Fork me on GitHub"></a> -->
 
 <script type="text/javascript"> 
 function $(id){
-        return document.getElementById(id);
+    return document.getElementById(id);
 }
 
 var preCanvas = $("preview");
@@ -40,99 +123,99 @@ var viewer = $("viewer");
 var progress = $('progress');
 
 viewer.addEventListener('dragover', function(e) {
-        e.stopPropagation();
-        e.preventDefault();
+    e.stopPropagation();
+    e.preventDefault();
 
-        viewer.style.border='5px dashed #555';
-        return false;
+    viewer.style.border='5px dashed #555';
+    return false;
 })
 
 viewer.addEventListener('dragleave', function(e) {
-        e.stopPropagation();
-        e.preventDefault();
+    e.stopPropagation();
+    e.preventDefault();
 
-        viewer.style.border='4px dashed #ccc';
-        return false;
+    viewer.style.border='4px dashed #ccc';
+    return false;
 });  
 
 viewer.addEventListener("drop",function(e){  
-     e.stopPropagation();   
-     e.preventDefault();    
-  
-     var dt = e.dataTransfer; 
-     viewer.style.border='4px dashed #ccc';   
-  
-     //获取文件数组  
-     var files = dt.files;  
-     handleFiles(files);   
+   e.stopPropagation();   
+   e.preventDefault();    
+
+   var dt = e.dataTransfer; 
+   viewer.style.border='4px dashed #ccc';   
+
+   //获取文件数组  
+   var files = dt.files;  
+   handleFiles(files);   
 },false);  
   
 /*FileReader预览图片*/
 function handleFiles(file){ 
-        var fileName = $("fileName");
-        fileName.value = file[0].name;
-        if (file[0].type.indexOf("image") == 0) { 
-                if(file[0].size >= 512000){
-                        progress.innerHTML = "图片"+file[0].name+"过大，无法处理。拿个<500k的试试吧";
-                }else{
-                        var reader = new FileReader();  
-                        reader.onload = function(e){
-                                //
-                                displayImage(e.target.result);//displayImage(container,dataURL)
-                        }
-                        reader.readAsDataURL(file[0]); 
-                }
+    var fileName = $("fileName");
+    fileName.value = file[0].name;
+    if (file[0].type.indexOf("image") == 0) { 
+        if(file[0].size >= 512000){
+            progress.innerHTML = "图片"+file[0].name+"过大，无法处理。拿个<500k的试试吧";
         }else{
-                progress.innerHTML = "ooop! "+file[0].name+"不是图片"; 
-        }                  
+            var reader = new FileReader();  
+            reader.onload = function(e){
+                    //
+                    displayImage(e.target.result);//displayImage(container,dataURL)
+            }
+            reader.readAsDataURL(file[0]); 
+        }
+    }else{
+        progress.innerHTML = "ooop! "+file[0].name+"不是图片"; 
+    }                  
 }
 
 function displayImage(dataURL){        
-        var cxt = preCanvas.getContext("2d");        
-        var img = new Image();        
+    var cxt = preCanvas.getContext("2d");        
+    var img = new Image();        
+    
+    img.onload = function(){
+        var w = img.width, h = img.height;
+        preCanvas.width = w; 
+        preCanvas.height = h;
+        viewer.style.width = w+"px";
+        viewer.style.height = h+"px";
+        $("droparea-text").style.display = "none";
         
-        img.onload = function(){
-                var w = img.width, h = img.height;
-                preCanvas.width = w; 
-                preCanvas.height = h;
-                viewer.style.width = w+"px";
-                viewer.style.height = h+"px";
-                $("droparea-text").style.display = "none";
-                
-                cxt.drawImage(img, 0, 0);
-                getColorValue(cxt);
-        }
-        img.src = dataURL;
+        cxt.drawImage(img, 0, 0);
+        getColorValue(cxt);
+    }
+    img.src = dataURL;
 }
 
 //获取data并显示
 function getColorValue(canvas){
-        //console.log(data);
-        preCanvas.onmousemove = function(e){
-                var x=e.layerX;
-                var y=e.layerY;
-                var data = canvas.getImageData(x, y, x+1, y+1).data;
-                
-                progress.style.left = e.pageX+"px";
-                progress.style.top = e.pageY+"px";
-                progress.innerHTML = "xy("+x+","+y+")<br/>color:rgba("+data[0]+","+data[1]+","+data[2]+","+data[3]+")<br/>color:"+colorHex(data[0],data[1],data[2]);
-        }
-        preCanvas.onmouseout = function(){
-                progress.innerHTML = "";
-        }
+    //console.log(data);
+    preCanvas.onmousemove = function(e){
+            var x=e.layerX;
+            var y=e.layerY;
+            var data = canvas.getImageData(x, y, x+1, y+1).data;
+            
+            progress.style.left = e.pageX+"px";
+            progress.style.top = e.pageY+"px";
+            progress.innerHTML = "xy("+x+","+y+")<br/>color:rgba("+data[0]+","+data[1]+","+data[2]+","+data[3]+")<br/>color:"+colorHex(data[0],data[1],data[2]);
+    }
+    preCanvas.onmouseout = function(){
+            progress.innerHTML = "";
+    }
 }
 
 /*转换色值:rgba->#000000*/
 function colorHex(a1,a2,a3){
-        var strHex = "#";
-        for (var i = 0; i < 3; i++) {
-                try{
-                        strHex+=(arguments[i]<16?"0":"")+arguments[i].toString(16);
-                }catch(e){
-                        alert(e.message);
-                }
-        }
-        return strHex;
+    var strHex = "#";
+    for (var i = 0; i < 3; i++) {
+            try{
+                    strHex+=(arguments[i]<16?"0":"")+arguments[i].toString(16);
+            }catch(e){
+                    alert(e.message);
+            }
+    }
+    return strHex;
 }
 
 
