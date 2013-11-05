@@ -10,4 +10,5 @@ Code
 * [页脚固定在底部](http://coffeexu.github.io/Code/keepBtm.html)
 * [翻页](http://coffeexu.github.io/Code/slide.html)
 * [获取图片上的颜色值](http://coffeexu.github.io/Code/getColor.html)
+* [识别0-1](http://coffeexu.github.io/Code/learn01.html)
 
