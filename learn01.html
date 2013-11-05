@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>识别0|1</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/reset.css" />
+    <script type="text/javascript" src="http://cloud.github.com/downloads/harthur/brain/brain-0.6.0.js"></script>
+    <style>
+        body{
+          width: 990px;
+          margin: 0 auto;
+          font-family: Helvetica Neue, Helvetica, Tahoma, sans-serif;
+        }
+        canvas{
+          outline: 1px solid #ccc;
+          position: absolute;
+          top: 0px;
+          left: 0px;
+        }
+        .tip{
+          width: 380px;
+          background: #f5f5f5;
+          border: 1px solid #eee;
+          color: #444;
+          padding: 12px;
+          margin: 8px 0;
+        }
+        #Training, #Texting{
+          position: relative;
+          height: 250px;
+          padding-left: 300px;
+        }
+        #num{
+          font: bold 114px Constantia;
+          color: #f54135;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="tip">
+      <p>步骤一：training。在画板上画出红色的数字。</p>
+      <p>步骤二：查看结果。</p>
+      <p>资料：<a href="https://github.com/harthur/brain" target="_blank">brain.js</a></p>
+    </div>
+    <div id="Training">
+      <canvas id="draw" height="220" width="220">画板</canvas>
+      <div>
+        <p id="num">1</p>
+        <input type="button" id="stop" value="查看结果">       
+      </div>
+    </div>
+    <div id="Texting" style="display:none">
+      <canvas id="Text" height="220" width="220"></canvas>
+      <input type="button" value="测试" id="text">
+    </div>
+    <script type="text/javascript"> 
+        function $(id){
+            return document.getElementById(id);
+        }
+        var num = Math.round(Math.random()),
+            canvas = $("draw").getContext('2d');
+
+        var data = [],
+            isMouseDown = false,
+            pos = {
+                x: 0,
+                y: 0
+            },
+            next_pos = {
+                x: 0,
+                y: 0
+            };
+        var DEFAULT_BRUSH_COLOR = "#0000ff",
+            DEFAULT_BRUSH_SIZE = 25,
+            number = -1;
+
+        $("num").innerHTML = num;
+        $("draw").addEventListener('mousemove', mouseMove, false);
+        $("draw").addEventListener('mousedown', mouseDown, false);
+        $("draw").addEventListener('mouseup', mouseUp, false);
+        $("stop").addEventListener('click', train, false);
+        $("text").addEventListener('click', text, false);
+        setInterval(loop, 1000 / 60);
+
+        function mouseMove(e) {
+            next_pos.x=e.layerX;
+            next_pos.y=e.layerY;
+            /*console.log('你当前点击鼠标的位置为('+next_pos.x+','+next_pos.y+')');*/
+        }
+        function mouseDown(e) {
+            isMouseDown = true;
+        }
+        function mouseUp(e) {
+            isMouseDown = false;
+            binary($("draw"), num);
+        }
+        function loop() {
+            if (isMouseDown) draw(canvas);
+            pos.x = next_pos.x;
+            pos.y = next_pos.y;
+        }
+        function draw(ctx) {
+
+            ctx.save();
+            ctx.lineWidth =DEFAULT_BRUSH_SIZE;
+            ctx.lineCap = "round";
+            ctx.beginPath();
+            if( pos.x == next_pos.x && pos.y == next_pos.y ){
+                ctx.arc(pos.x,pos.y,DEFAULT_BRUSH_SIZE/2,0,Math.PI * 2,true);
+                ctx.fill();
+            }
+            else{
+                ctx.moveTo(pos.x,pos.y);
+                ctx.lineTo(next_pos.x,next_pos.y);
+                ctx.stroke();
+            }
+            ctx.restore();
+
+        }
+
+        function binary(canvas,number) {
+            var datum = {
+                input: [],
+                output: [0,0]
+            }
+            if(!canvas.data){
+                var ctx = canvas.getContext('2d');
+                var imagedata = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            }
+
+            var greys = new Array(64);
+            for (var y = 0,j=0, leny = imagedata.height; y < leny; y+=20) {
+
+                for (var x = 0, lenx= imagedata.width; x < lenx; x+=20) {
+                    var i = x*4 + y*4*lenx;
+                    greys[j++] = imagedata.data[i+3] == 0 ? 0 : 1;
+                }; 
+                
+            };
+            datum.input = greys;
+            if(arguments[1]){
+               datum.output[number]=1; 
+            }
+            data.push(datum);
+            //初始化canvas数据
+            ctx.clearRect(0,0,imagedata.width,imagedata.height);
+            num = Math.round(Math.random());
+            $("num").innerHTML = num;
+            if(data.length > 1){
+                $("stop").value = "多画几次我会更聪明";
+            }
+            if(data.length > 5){
+               $("stop").value = "看看我学得怎么样"; 
+            }
+
+        }
+        var net = new brain.NeuralNetwork();
+        function train(){
+
+            $("Texting").style.display = "block";
+            net.train(data);
+            var canvas = $("Text").getContext('2d');
+            canvas.fillRect(20,20,18,130);
+        }
+
+        function text(){
+            binary($("Text"));
+            var output = net.run(data[0].input);
+            var s = "";
+            for (var property in output) {  
+               s = s + "\n "+property +": " + output[property] ;  
+            } 
+            console.log(s);
+            alert("数字为1的概率为"+output[1]+"\n数字为0的概率为"+output[0]);
+        }
+    </script>
+</body>
+</html>
