@@ -8,34 +8,41 @@
 	<style>
 		ul{
 			position: relative;
-		      overflow: hidden;
-		      width: 100%;
-		      height: 100%;
+			overflow: hidden;
+			width: 100%;
+			height: 100%;
 		}
 		li{
 			position: absolute;
 			left: 0;top: 0;
 			visibility: hidden;
 		}
-    .now{
-      color: #333;
-    }
+		#jsTrigger{
+			position: absolute;
+			bottom: 12px;
+			right: 12px;
+		}
+		#jsTrigger a{
+			display: inline-block;
+			width: 10px;height: 10px;
+			background-color: #fff;
+			border-radius: 10px;
+			cursor: pointer;
+			margin-right: 12px;
+		}
+		#jsTrigger a.now{
+			background-color: #bcbcbc;
+		}
 	</style>
 </head>
 <body>
-  <div id="jsScroll">
+  <div id="jsSlide">
 	<ul>
-    	<li style="visibility:visible;" id="position"><a href="#"><img alt="英伦风" src="img/img0.jpg"></a> </li>
-        <li><a href="#"><img alt="打底裤" src="img/img1.jpg"></a> </li>
-        <li><a href="#"><img alt="背心" src="img/img2.jpg"></a> </li>
-        <li><a href="#"><img alt="牛仔" src="img/img3.jpg"></a> </li>            
+    	<li><a href="#1"><img alt="英伦风" src="img/img0.jpg"></a></li>
+        <li><a href="#2"><img alt="打底裤" src="img/img1.jpg"></a></li>
+        <li><a href="#3"><img alt="背心" src="img/img2.jpg"></a></li>
+        <li><a href="#4"><img alt="牛仔" src="img/img3.jpg"></a></li>            
     </ul>
-    <div id="jsTrigger" class="">
-        <a class="now" href="javascript:void(0)">1</a>
-        <a class="" href="javascript:void(0)">2</a>
-		<a class="" href="javascript:void(0)">3</a>
-		<a class="" href="javascript:void(0)">4</a>
-	</div>
   </div>
   <script>
   (function($){
@@ -60,7 +67,14 @@
 	            prevSlide = currentSlide.prev().size() ? currentSlide.prev() : $wrap.find('li:last-child');
 
 	        var init = function(){
-	            $wrap.css({width:settings.width, height:settings.height});
+	            $wrap.css({width:settings.width, height:settings.height,position:'relative'})
+	            	 .find('li:eq(0)').css('visibility','visible');
+	            jsTrigger = '<div id="jsTrigger"><a class="now"></a></div>';
+    			$wrap.append(jsTrigger);
+	            for(i = 1, len = $wrap.find('li').length; i < len;i++){
+	            	$('#jsTrigger').append('<a></a>')
+	            }
+
 	            $wrap.data('timer', setTimeout(start, settings.delay*1000));
 	            if(settings.direction === 'vertical'){
 	            	pos = {top:settings.height};
@@ -130,8 +144,9 @@
 	    	})
 
 	    };
+
 	    //调用函数
-	    $("#jsScroll").slideBox({width:320,height:488})/*direction:'vertical',*/
+	    $("#jsSlide").slideBox({width:320,height:488})/*direction:'vertical',*/
 
   })(jQuery);
   </script>
