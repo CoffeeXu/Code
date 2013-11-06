@@ -23,7 +23,7 @@
 			padding-top: 100px;
 		}
 		#content{
-			width: 1000px;
+			max-width: 1000px;
 			margin: 0 auto;
 			height: 672px;
 			position: relative;
@@ -40,10 +40,21 @@
 			overflow: hidden;
 			z-index: 1;
 		}
-		.b1 .b1, .b2 .b2, .b3 .b3,
-		.b4 .b4, .b5 .b5, .b6 .b6{
-  			width: 600px;
-			height: 480px;
+		.section i{
+			position: absolute;
+			right: 0;
+			top: 0;
+			font: 28px/28px Meiryo;
+			width: 28px;
+			height: 28px;
+			background: #fff;
+			text-align: center;
+			display: none;
+			cursor: pointer;
+		}
+		.b1 .b1 i, .b2 .b2 i, .b3 .b3 i,
+		.b4 .b4 i, .b5 .b5 i, .b6 .b6 i{
+			display: block;
 		}
 		#content .b1{
 			background: #4e4e4e;
@@ -76,156 +87,195 @@
 			left: 800px;
 			top: 192px;
 		}
-		#content.b1 .b2 {		  
-		  left: 600px;
+		.b1 .b1, .b2 .b2, .b3 .b3,
+		.b4 .b4, .b5 .b5, .b6 .b6{
+			width: 800px;
+			height: 640px;
 		}
-		#content.b1 .b3 {
-		  left: 800px;
+		@media (min-width: 1001px) {
+			#content.b1 .b2, #content.b1 .b3, #content.b1 .b4, #content.b1 .b5, #content.b1 .b6,
+			#content.b2 .b1, #content.b2 .b3, #content.b2 .b4, #content.b2 .b5, #content.b2 .b6,
+			#content.b3 .b1, #content.b3 .b2, #content.b3 .b4, #content.b3 .b5, #content.b3 .b6,
+			#content.b4 .b1, #content.b4 .b2, #content.b4 .b3, #content.b4 .b5, #content.b4 .b6,
+			#content.b5 .b1, #content.b5 .b2, #content.b5 .b3, #content.b5 .b4, #content.b5 .b6,
+			#content.b6 .b1, #content.b6 .b2, #content.b6 .b3, #content.b6 .b4, #content.b6 .b5{
+				width: 150px;
+				height: 216px;
+			}
+			#content.b1 .b1 {		  
+			  top: 100px;
+			}
+			#content.b1 .b2 {		  
+			  left: 800px;
+			  top: 0px;
+			}
+			#content.b1 .b3 {
+			  left: 950px;
+			  top: 108px;
+			}
+			#content.b1 .b4 {
+			  left: 1100px;
+			  top: 190px;
+			}
+			#content.b1 .b5 {
+			  left: 1100px;
+			  top: -106px;
+			}
+			#content.b1 .b6 {
+			  left: 1250px;
+			  top: 50px;
+			}
+			#content.b2 .b1 {
+			  left: -150px;
+			  top: 192px;
+			}
+			#content.b2 .b2 {		  
+			  left: 0px;
+			  top: 36px;
+			}
+			#content.b2 .b3 {
+			  left: 800px;
+			  top: 68px;
+			}
+			#content.b2 .b4 {
+			  left: 950px;
+			  top: 284px;
+			}
+			#content.b2 .b5 {
+			  left: 950px;
+			  top: 0px;
+			}
+			#content.b2 .b6 {
+			  left: 1100px;
+			  top: 195px;
+			}
+			#content.b4 .b1 {
+			  left: -350px;
+			  top: 48px;
+			}
+			#content.b4 .b2 {
+			  left: -200px;
+			  top: -96px;
+			}
+			#content.b4 .b3 {
+			  left: -50px;
+			  top: 96px;
+			}
+			#content.b4 .b4 {
+			  left: 100px;
+			  top: 152px;
+			}
+			#content.b4 .b5 {
+			  left: 750px;
+			  top: -192px;
+			}
+			#content.b4 .b6 {
+			  left: 900px;
+			  top: 0px;
+			}
+			#content.b3 .b1 {
+			  left: -200px;
+			  top: 144px;
+			}
+			#content.b3 .b2 {
+			  left: -50px;
+			  top: 0px;
+			}
+			#content.b3 .b3 {
+			  left: 100px;
+			  top: 128px;
+			}
+			#content.b3 .b4 {
+			  left: 900px;
+			  top: 330px;
+			}
+			#content.b3 .b5 {
+			  left: 900px;
+			  top: 0px;
+			}
+			#content.b3 .b6 {
+			  left: 1050px;
+			  top: 162px;
+			}
+			#content.b5 .b1 {
+			  left: -350px;
+			  top: 440px;
+			}
+			#content.b5 .b2 {
+			  left: -200px;
+			  top: 296px;
+			}
+			#content.b5 .b3 {
+			  left: -50px;
+			  top: 488px;
+			}
+			#content.b5 .b4 {
+			  left: 750px;
+			  top: 670px;
+			}
+			#content.b5 .b5 {
+			  left: 100px;
+			  top: 0px;
+			}
+			#content.b5 .b6 {
+			  left: 900px;
+			  top: 520px;
+			}
+			#content.b6 .b1 {
+			  left: -300px;
+			  top: 178px;
+			}
+			#content.b6 .b2 {
+			  left: -150px;
+			  top: 76px;
+			}
+			#content.b6 .b3 {
+			  left: 0px;
+			  top: 215px;
+			}
+			#content.b6 .b4 {
+			  left: 150px;
+			  top: 294px;
+			}
+			#content.b6 .b5 {
+			  left: 150px;
+			  top: 0px;
+			}
+			#content.b6 .b6 {
+			  left: 300px;
+			  top: 96px;
+			}
 		}
-		#content.b1 .b4 {
-		  left: 1000px;
-		}
-		#content.b1 .b5 {
-		  left: 1000px;
-		}
-		#content.b1 .b6 {
-		  left: 1200px;
-		}
-		#content.b2 .b1 {
-		  left: -200px;
-		  top: 192px;
-		}
-		#content.b2 .b2 {		  
-		  left: 0px;
-		  top: 96px;
-		}
-		#content.b2 .b3 {
-		  left: 600px;
-		  top: 96px;
-		}
-		#content.b2 .b4 {
-		  left: 800px;
-		  top: 384px;
-		}
-		#content.b2 .b5 {
-		  left: 800px;
-		  top: 0px;
-		  z-index: 1;
-		}
-		#content.b2 .b6 {
-		  left: 1000px;
-		  top: 192px;
-		}
-		#content.b4 .b1 {
-		  left: -400px;
-		  top: 48px;
-		}
-		#content.b4 .b2 {
-		  left: -200px;
-		  top: -96px;
-		}
-		#content.b4 .b3 {
-		  left: 0px;
-		  top: 96px;
-		}
-		#content.b4 .b4 {
-		  left: 200px;
-		  top: 192px;
-		}
-		#content.b4 .b5 {
-		  left: 600px;
-		  top: -192px;
-		}
-		#content.b4 .b6 {
-		  left: 800px;
-		  top: 0px;
-		}
-		#content.b3 .b1 {
-		  left: -200px;
-		  top: 144px;
-		}
-		#content.b3 .b2 {
-		  left: 0px;
-		  top: 0px;
-		}
-		#content.b3 .b3 {
-		  left: 200px;
-		  top: 192px;
-		}
-		#content.b3 .b4 {
-		  left: 800px;
-		  top: 384px;
-		}
-		#content.b3 .b5 {
-		  left: 800px;
-		  top: 0px;
-		}
-		#content.b3 .b6 {
-		  left: 1000px;
-		  top: 192px;
-		}
-		#content.b5 .b1 {
-		  left: -400px;
-		  top: 240px;
-		}
-		#content.b5 .b2 {
-		  left: -200px;
-		  top: 96px;
-		}
-		#content.b5 .b3 {
-		  left: 0px;
-		  top: 288px;
-		}
-		#content.b5 .b4 {
-		  left: 600px;
-		  top: 480px;
-		}
-		#content.b5 .b5 {
-		  left: 200px;
-		  top: 0px;
-		}
-		#content.b5 .b6 {
-		  left: 800px;
-		  top: 288px;
-		}
-		#content.b6 .b1 {
-		  left: -400px;
-		  top: 240px;
-		}
-		#content.b6 .b2 {
-		  left: -200px;
-		  top: 96px;
-		}
-		#content.b6 .b3 {
-		  left: 0px;
-		  top: 288px;
-		}
-		#content.b6 .b4 {
-		  left: 200px;
-		  top: 384px;
-		}
-		#content.b6 .b5 {
-		  left: 200px;
-		  top: 0px;
-		}
-		#content.b6 .b6 {
-		  left: 400px;
-		  top: 96px;
+		@media (max-width: 1000px) {
+			#content.b1 .b1, #content.b2 .b2, #content.b3 .b3,
+			#content.b4 .b4, #content.b5 .b5, #content.b6 .b6{
+				left: 80px;
+				top: 0;
+			}
+			#content.b1 .b2, #content.b1 .b3, #content.b1 .b4, #content.b1 .b5, #content.b1 .b6,
+			#content.b2 .b1, #content.b2 .b3, #content.b2 .b4, #content.b2 .b5, #content.b2 .b6,
+			#content.b3 .b1, #content.b3 .b2, #content.b3 .b4, #content.b3 .b5, #content.b3 .b6,
+			#content.b4 .b1, #content.b4 .b2, #content.b4 .b3, #content.b4 .b5, #content.b4 .b6,
+			#content.b5 .b1, #content.b5 .b2, #content.b5 .b3, #content.b5 .b4, #content.b5 .b6,
+			#content.b6 .b1, #content.b6 .b2, #content.b6 .b3, #content.b6 .b4, #content.b6 .b5{
+				width: 50px;
+				height: 77px;
+				position: static;
+			}
 		}
 		
 	</style>
 </head>
 <body>
-	<header>
-	</header>
+	<header></header>
 	<div id="home">
 		<div id="content">
-			<div class="section b1"></div>
-			<div class="section b2"></div>
-			<div class="section b3"></div>
-			<div class="section b4"></div>
-			<div class="section b5"></div>
-			<div class="section b6"></div>
+			<div class="section b1"><i>x</i></div>
+			<div class="section b2"><i>x</i></div>
+			<div class="section b3"><i>x</i></div>
+			<div class="section b4"><i>x</i></div>
+			<div class="section b5"><i>x</i></div>
+			<div class="section b6"><i>x</i></div>
 	    </div>
 	</div>
 	<footer></footer>
@@ -234,6 +284,10 @@
 			$('.section').click(function(){
 				var i = $(this).index()+1;
 				$('#content').removeClass().addClass('b'+i);
+			});
+			$('.section i').click(function(){
+				$('#content').removeClass();
+				return false;
 			});
 		})();
 	</script>
